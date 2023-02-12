@@ -11,8 +11,13 @@
 ### Features
 
 - Add new contact.
+  > - needs to varify contact is is properly added with proper input fields and length.
+  > - Make sure only numbers are added to the phone list.
 - Update existing contact.
+  > - needs to varify contact is is properly added with proper input fields and length.
 - read and display contact list.
+  > - Dispaly all
+  > - display single contact by inputing name/Contact.
 - Delete contact list.
 
 ### Technologies
@@ -25,14 +30,17 @@
 
 list = [
 A: {
-{name:'Arif Ikram', contact:'0192954897', City:'Jakarta Selatan',zip:'47000'}
+{name:'Arif Ikram', contact:'0192954897', City:'Jakarta Selatan',zip:'47000'},
+{name:'Arif Syukri', contact:'0172954897', City:'Jakarta Utara',zip:'49000'},
 },
 B:{},
 C:{},
 D:{
 {name:'Dita Claudia', contact:'0195654577', City:'Jakarta Selatan',zip:'47000'}
 },
-E:{},
+E:{
+{name:'ex-gf', contact:'014585889', City:'Bali Utara',zip:'77000'}
+},
 F:{},
 G:{},
 H:{},
