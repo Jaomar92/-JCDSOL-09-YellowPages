@@ -1,41 +1,17 @@
 #Student: Jeffey Aroun bin Omar
 
 #Initialization of DataBase
-yellowPages = [
-    {"A":
-     [
-      {'nama':'Arif Ikram', "hp":"019295488", 'Kota':"Jakarta Selatan", "zip":59000},
-      {'nama':'Alif Fitri', 'hp':"015024406", 'Kota': "Damansara", 'zip': 72999}
-      ]
-      },
-      {"B":[{"nama":"","hp":'','Kota':"","zip":''}]},
-      {"C":{}},
-      {"D":{}},
-      {"E":{}},
-      {"F":{}},
-      {"G":{}},
-      {"H":{}},
-      {"I":{}},
-      {"J":{}},
-      {"K":{}},
-      {"L":{}},
-      {"M":{}},
-      {"N":{}},
-      {"O":{}},
-      {"P":{}},
-      {"Q":{}},
-      {"R":{}},
-      {"S":{}},
-      {"T":{}},
-      {"U":{}},
-      {"V":{}},
-      {"W":{}},
-      {"X":{}},
-      {"Y":{}},
-      {"Z":{}},
-      {"#":{}},
-
+yellow_pages = {
+    "J":[{"nama":"Jeffrey Omar", "hp":"085219787939", "kota":'jakarta Selatan', "zip":'12190'}], 
+    "D":[{"nama":"Dita Claudia", "hp":"628111366828", "kota":'jakarta Selatan', "zip":'12190'}],
+    "C":[{"nama":"Chandra", "hp":"6282127289952", "kota":'jakarta Barat', "zip":'132190'}],
+    "K":[{"nama":"Karina Farida", "hp":"6281515745925", "kota":'Depok', "zip":'294522'}],
+    "F":[
+    {"nama":"Fuad", "hp":"6281482228265", "kota":'jakarta Selatan', "zip":'668258'},
+    {"nama":"Fatima", "hp":"6282242807286", "kota":'jakarta timur', "zip":'599872'},
     ]
+}
+
 
 
 def Greeting():
@@ -43,7 +19,24 @@ def Greeting():
     print("Bagai Mana saya bisa Bantu anda? ")
 
 
-Greeting()
+# Function to organize the dictionary. 
+def organize_contact():
+    print(' ')
+    print("Contact List:- ")
+    # organize the alphabets
+    organized = dict(sorted(yellow_pages.items()))
+    #Organize the dictionary of the alphabets
+    for i in organized:
+    #use sorted based on keys
+        organized[i]= sorted(yellow_pages[i], key=lambda d: d['nama'])
+        
+        print(i)
+        print()
+        for j in organized[i]:
+            print(f'''{j['nama']}\ncontact: {j['hp']}\tkota: {j['kota']}\tzip: {j['zip']}''')
+            print()
+            
+        
 
-print(type(yellowPages[1]["B"]))
+organize_contact()
 
