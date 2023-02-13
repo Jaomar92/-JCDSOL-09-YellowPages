@@ -4,12 +4,15 @@
 yellow_pages = { 
     "C":[{"nama":"Chandra", "hp":"6282127289952", "kota":'jakarta Barat', "zip":'132190'}],
     "D":[{"nama":"Dita Claudia", "hp":"628111366828", "kota":'jakarta Selatan', "zip":'12190'}],
+    "E":[],
     "F":[
     {"nama":"Fuad", "hp":"6281482228265", "kota":'jakarta Selatan', "zip":'668258'},
     {"nama":"Fatima", "hp":"6282242807286", "kota":'jakarta timur', "zip":'599872'},
     ],
     "J":[{"nama":"Jeffrey Omar", "hp":"085219787939", "kota":'jakarta Selatan', "zip":'12190'}], 
     "K":[{"nama":"Karina Farida", "hp":"6281515745925", "kota":'Depok', "zip":'294522'}],
+   
+    
 }
 
 
@@ -34,15 +37,33 @@ def Menu():
 
 
 # Function to Add Contact
-def Add_contact():
-    # Take contact Details
-    contactName = input("Name of the person you would like to add: ").capitalize()
-    contactNum = input("what is the contact number: ")
-    contactKota = input("contact Kota: ")
-    contactZip = input("Contact zip: ")
 
-    print(contactName, contactNum, contactKota, contactZip)
-    yellow_pages[contactName[0]].append({'nama':contactName, 'hp':contactNum, 'kota':contactKota, 'zip':contactZip})
+def Add_contact():
+    state =True
+    while state:
+        # Take contact Details
+        contactName = input("Name of the person you would like to add: ").title()
+        # Get the first character of the name
+        N = contactName[0] if contactName[0].isalpha() else '#'
+        # If the key doesn't exist in the dictionary, add it
+        if N not in yellow_pages:
+            yellow_pages[N] = []
+        # Checks if user already exist
+        for i in yellow_pages[N]:
+            if (contactName == i['nama']):
+                print('\n')
+                print("!!!<---- User already exists ---->!!!!")
+                print('\n')
+                state = False
+                return state
+                    
+        contactNum = input("what is the contact number: ")
+        contactKota = input("contact Kota: ")
+        contactZip = input("Contact zip: ")
+        yellow_pages[N].append({'nama':contactName, 'hp':contactNum, 'kota':contactKota, 'zip':contactZip})
+        state = False
+    
+    
 # How to add an item to a dictionary
 
 
@@ -57,12 +78,15 @@ def organize_contact():
     for i in organized:
     #use sorted based on keys
         organized[i]= sorted(yellow_pages[i], key=lambda d: d['nama'])
-        print()
-        print(i)
+        if len(organized[i]) > 0:
+            print(i)
+        else:
+            continue
         for j in organized[i]:
             print('  ', j['nama'],'\n','|',"contact: ", j['hp']," "*(15 -len(j['hp'])), "|", "kota: ", j['kota']," "*(15 -len(j['kota'])), "|" ,"zip: ", j['zip']," "*(7 -len(j['zip'])), "|")
-            print('-------------------------------------------------------------------------------')
+            print('--------------------------------------------------------------------------')
         print()
+    
             
 
 
@@ -86,4 +110,11 @@ while True:
         break
     else:
         print("Please input the proper prompt.")
-
+# contactName = input("Name of the person you would like to add: ").title()
+# N = contactName[0]
+# for i in yellow_pages[N]:
+#     print(contactName)
+#     if (contactName == i['nama']):
+#         print("User name Already exsits")
+#     else:
+#         print('adding User')
