@@ -17,19 +17,19 @@ yellow_pages = {
 
 
 def Greeting():
-    print("Halo Selamat Datang ke Jeffrey punya Python Yello Pages Program! ")
-    print("Bagai Mana saya bisa Bantu anda? ")
+    print("Halo Selamat Datang di program Python Yellow Pages Jeffrey! ")
+    print("Bisa saya bantu? ")
 
 # Funtion to print Menu Options
 def Menu():
     print('''
     MENU:-
-    Sila pulih opsi
+    Silahkan pilih opsi
 
-    1. add Contact.
-    2. Update Contact.
-    3. Delete Contact.
-    4. Search Contact.
+    1. Tambah Kontak.
+    2. Perbaharui Kontak.
+    3. Hapus Kontak.
+    4. Cari Kontak.
     5. Keluar.
     ''')
 def organize_options():
@@ -38,15 +38,15 @@ def organize_options():
     while state:
         print('''
     How would you prefer retrieve your desired contact.
-    1. All contacts listed.
-    2. By Alphabet
-    3. By Person.
-    4. Exit.
+    1. Semua Kontak yang di hurai.
+    2. guna huruf.
+    3. guna Nama kontak.
+    4. Keluar.
     ''') 
-        userOption = input("Input from 1 - 4: ")
+        userOption = input("Input dari 1 - 4: ")
         if userOption == "1":
             print(' ')
-            print("Contact List:- ")
+            print("Kontak List:- ")
             # organize the alphabets
             organized = dict(sorted(yellow_pages.items()))
             #Organize the dictionary of the alphabets
@@ -61,14 +61,14 @@ def organize_options():
                     print('  ', j['nama'],'\n','|',"contact: ", j['hp']," "*(15 -len(j['hp'])), "|", "kota: ", j['kota']," "*(15 -len(j['kota'])), "|" ,"zip: ", j['zip']," "*(7 -len(j['zip'])), "|")
                     print('--------------------------------------------------------------------------')
                 print()
-            print('^^^ Scroll up ^^^')
+            print('^^^ Scroll Atas ^^^')
             
         elif userOption == "2":
-            contactAlph = input('What alphabet tab would you like to check? ').title()
+            contactAlph = input('Huruf apa anda mahu check? ').title()
             N = contactAlph[0] if contactAlph[0].isalpha() else '#'
             count = 0 
             print('\n ')
-            print(f"Contact List of {N}:- ")
+            print(f"Kontak List dalam huruf {N}:- ")
             if yellow_pages.get(N) is not None:
                 print(N)
                 for i in yellow_pages[N]:
@@ -76,12 +76,12 @@ def organize_options():
                     print('--------------------------------------------------------------------------')
                     count += 1
                 print('\n')
-                print(f"Number of contact list in alpha tab {N} is {count} people.")
+                print(f"Dalam tab huruf {N} ada {count} orang.")
             else:
                 print('\n')
-                print(f"No one exist in the alphabet tab of {N}")
+                print(f"Tiada orang dalam tab huruf {N}")
                 print('\n')
-                print('Please return to search contact Menu.')
+                print('Balik ke cari Kontak Menu.')
                 print('\n')
 
         elif userOption == '3':
@@ -167,7 +167,7 @@ def Add_contact():
 def Update_contact():
     organize_contact()
     #Get user contact they wish to update.
-    contactName = input("Enter the name of the contact you would like to delete: ").title()
+    contactName = input("Tulis nama kontak yang anda ingin perbaruhi: ").title()
     # Checks if its a alphabet or char.
     N = contactName[0] if contactName[0].isalpha() else '#'
     for i in yellow_pages[N]:
@@ -186,25 +186,43 @@ def Delete_contact():
     #prints current contact list for better reference
     organize_contact()
     # Ask user which contact they want to delete.
-    contactName = input("Enter the name of the contact you would like to delete: ").title()
+    contactName = input("Tulis nama kontak yang anda ingin hapus: ").title()
     # checks if the contact exsist.
     N = contactName[0] if contactName[0].isalpha() else '#'
     # iterates contact list to find a match
-    for i in yellow_pages[N]:
-        if (contactName == i['nama']):
-            yellow_pages[N].remove(i)
-            print("Contact has been deleted successfully")
-            return
-    print('\n')
-    print("!!!<-----Contact not found----->!!!")
-    print('\n')
+    # need to check if the contact exist first.
+    contact_found = False
+    
+    if N in yellow_pages:
+        contact_found = True
+    else:
+        print('\n')
+        print("!!!<-----Kontak tidak ditemukan----->!!!")
+        print('\n')
+        print("Pulang kembali ke Menu Utama.")
+        return
 
+    if contact_found:    
+        assurance = input("Anda yakin ingin menghapus kontak? (Y/N): ").title()
+        if assurance == "Y":
+            for i in yellow_pages[N]:
+                if (contactName == i['nama']):
+                    yellow_pages[N].remove(i)
+                    print("kontak berhasil dihapus.")
+                    return
+        elif assurance =="N":
+            print('\n')
+            print("Baik kita akan pelung balik ke Menu Utama.")
+        else:
+            print('\n')
+            print("Input yang salah. Program ini akan kembali ke menu utam.")
+    
 
 # organize_contact()
 Greeting()
 while True:
     Menu()
-    userOption = input(" Sila pilih nomur: ")
+    userOption = input(" Sila pilih nomor: ")
     userInput = int(userOption if userOption.isdigit() else 6)
     if (userInput == 1):
         print("Anda pilih: " + str(userOption))
