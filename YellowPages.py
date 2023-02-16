@@ -138,7 +138,7 @@ def Add_contact():
     while state:
         # Take contact Details
         # first error check is name
-        contactName = input("Name of the person you would like to add: ").title()
+        contactName = input("Nama kontak yang anda ingin tambah: ").title()
         # Get the first character of the name
         # checks if N is an alphabet or something else.
         N = contactName[0] if contactName[0].isalpha() else '#'
@@ -151,7 +151,7 @@ def Add_contact():
         for i in yellow_pages[N]:
             if (contactName == i['nama']):
                 print('\n')
-                print("!!!<---- User already exists ---->!!!!")
+                print("!!!<-- contact dengan nama yang di input sudah wujud. Anda di kembalikan ke menu utama. -->!!!!")
                 print('\n')
                 state = False
                 return state
