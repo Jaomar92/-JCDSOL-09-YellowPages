@@ -4,7 +4,6 @@
 yellow_pages = { 
     "C":[{"nama":"Chandra", "hp":"6282127289952", "kota":'jakarta Barat', "zip":'132190'}],
     "D":[{"nama":"Dita Claudia", "hp":"628111366828", "kota":'jakarta Selatan', "zip":'12190'}],
-    "E":[],
     "F":[
     {"nama":"Fuad", "hp":"6281482228265", "kota":'jakarta Selatan', "zip":'668258'},
     {"nama":"Fatima", "hp":"6282242807286", "kota":'jakarta timur', "zip":'599872'},
@@ -33,6 +32,85 @@ def Menu():
     4. Search Contact.
     5. Keluar.
     ''')
+def organize_options():
+    
+    state = True
+    while state:
+        print('''
+    How would you prefer retrieve your desired contact.
+    1. All contacts listed.
+    2. By Alphabet
+    3. By Person.
+    4. Exit.
+    ''') 
+        userOption = input("Input from 1 - 4: ")
+        if userOption == "1":
+            print(' ')
+            print("Contact List:- ")
+            # organize the alphabets
+            organized = dict(sorted(yellow_pages.items()))
+            #Organize the dictionary of the alphabets
+            for i in organized:
+            #use sorted based on keys
+                organized[i]= sorted(yellow_pages[i], key=lambda d: d['nama'])
+                if len(organized[i]) > 0:
+                    print(i)
+                else:
+                    continue
+                for j in organized[i]:
+                    print('  ', j['nama'],'\n','|',"contact: ", j['hp']," "*(15 -len(j['hp'])), "|", "kota: ", j['kota']," "*(15 -len(j['kota'])), "|" ,"zip: ", j['zip']," "*(7 -len(j['zip'])), "|")
+                    print('--------------------------------------------------------------------------')
+                print()
+            print('^^^ Scroll up ^^^')
+            
+        elif userOption == "2":
+            contactAlph = input('What alphabet tab would you like to check? ').title()
+            N = contactAlph[0] if contactAlph[0].isalpha() else '#'
+            count = 0 
+            print('\n ')
+            print(f"Contact List of {N}:- ")
+            if yellow_pages.get(N) is not None:
+                print(N)
+                for i in yellow_pages[N]:
+                    print('  ', i['nama'],'\n','|',"contact: ", i['hp']," "*(15 -len(i['hp'])), "|", "kota: ", i['kota']," "*(15 -len(i['kota'])), "|" ,"zip: ", i['zip']," "*(7 -len(i['zip'])), "|")
+                    print('--------------------------------------------------------------------------')
+                    count += 1
+                print('\n')
+                print(f"Number of contact list in alpha tab {N} is {count} people.")
+            else:
+                print('\n')
+                print(f"No one exist in the alphabet tab of {N}")
+                print('\n')
+                print('Please return to search contact Menu.')
+                print('\n')
+
+        elif userOption == '3':
+            contactName = input('Who would you like to check? ').title()
+            N = contactName[0] if contactName[0].isalpha() else '#'
+            for i in yellow_pages[N]:
+                if (contactName == i['nama']):
+                    print('  ', i['nama'],'\n','|',"contact: ", i['hp']," "*(15 -len(i['hp'])), "|", "kota: ", i['kota']," "*(15 -len(i['kota'])), "|" ,"zip: ", i['zip']," "*(7 -len(i['zip'])), "|")
+                    print('--------------------------------------------------------------------------')
+                    
+            print('\n')
+            print("!!!<-----Contact not found----->!!!")
+            if yellow_pages[N]:
+                print('You could try search for these names instead: - ')
+                print('\n')           
+                for i in yellow_pages[N]:
+                    print(i["nama"])
+            print('\n')           
+            
+        elif userOption == "4":
+            print('Returning to main programing')
+            state = False
+
+        else:
+            print('\n')
+            print("Input not valid.")
+            print('\n')
+            print('!!! ERROR !!!')
+            print("Please Input a valid input of 1 - 4")
 
 # Function to organize the dictionary. 
 def organize_contact():
@@ -139,7 +217,7 @@ while True:
         Delete_contact()
     elif (userInput == 4):
         print("Anda pilih: " + str(userOption))
-        organize_contact()
+        organize_options()
     elif (userInput == 5):
         print("Anda pilih: " + str(userOption))
         break
@@ -147,11 +225,3 @@ while True:
         print('\n')        
         print("!!!<---Pilihan yang anda masukkan salah. Silakan coba lagi.--->!!! ")
         print('\n')        
-# contactName = input("Name of the person you would like to add: ").title()
-# N = contactName[0]
-# for i in yellow_pages[N]:
-#     print(contactName)
-#     if (contactName == i['nama']):
-#         print("User name Already exsits")
-#     else:
-#         print('adding User')
