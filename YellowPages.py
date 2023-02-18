@@ -73,7 +73,7 @@ def Add_contact():
         # Get the first character of the name
         # checks if N is an alphabet or something else.
         if len(contactName) == 0:
-            print('Returning to Main Menu')
+            print('Kembali ke Menu Utama')
             state = False
             return state
         N = contactName[0] if contactName[0].isalpha() else '#'
@@ -91,19 +91,19 @@ def Add_contact():
                 state = False
                 return state
         # continues if all is in order. 
-        contactNum = input("what is the contact number: ")
+        contactNum = input("berapa nomor kontaknya: ")
         if len(contactNum) == 0:
-            print('Returning to Main Menu')
+            print('Kembali ke Menu Utama')
             state = False
             return state
-        contactKota = input("contact Kota: ").title()
+        contactKota = input("Kontak Kota: ").title()
         if len(contactKota) == 0:
-            print('Returning to Main Menu')
+            print('Kembali ke Menu Utama')
             state = False
             return state
-        contactZip = input("Contact zip: ")
+        contactZip = input("Kontak zip: ")
         if len(contactZip) == 0:
-            print('Returning to Main Menu')
+            print('Kembali ke Menu Utama')
             state = False
             return state
         yellow_pages[N].append({'nama':contactName, 'hp':contactNum, 'kota':contactKota, 'zip':contactZip})
@@ -125,7 +125,7 @@ def Update_contact():
     organize_contact()
     while True:
         while state1:
-            contactName = input('Which contact would you like to update? ').title()
+            contactName = input('Kontak mana yang ingin Anda perbarui? ').title()
             # to handle names starting with non-alphabetic characters
             N = contactName[0] if contactName[0].isalpha() else '#'
             possible_matches = []
@@ -140,53 +140,53 @@ def Update_contact():
             if found_contact:
                 break
             elif not contactName:
-                print("Returning to main menu")
+                print("Kembali ke Menu Utama")
                 return None
             else:
-                print("\nName doesn't match any of the entries in our database. \n\nCould you mean one of these possible names?")
+                print("\nNama tidak cocok dengan salah satu entri di basis data kami. \n\nBisakah maksud Anda salah satu dari kemungkinan nama ini?")
                 print('\n'+ N)
                 for j in possible_matches:
                     print('  ', j['nama'],'\n','|',"contact: ", j['hp']," "*(15 -len(j['hp'])), "|", "kota: ", j['kota']," "*(15 -len(j['kota'])), "|" ,"zip: ", j['zip']," "*(7 -len(j['zip'])), "|")
                     print('--------------------------------------------------------------------------')
                 print('\n')
 
-        print(f"\nSelected contact: {contact['nama']}, Hp: {contact['hp']}, Kota: {contact['kota']}, Zip: {contact['zip']}\n")
+        print(f"\nKontak yang dipilih: {contact['nama']}, Hp: {contact['hp']}, Kota: {contact['kota']}, Zip: {contact['zip']}\n")
 
         while state2:
             print('''
-            What field of the contact would you like to update?: 
+            Kolom kontak mana yang ingin Anda perbarui?:
             1. Nama
             2. Hp
             3. Kota
             4. Zip
-            5. Go back to main menu
+            5. Kembali ke menu utama
             ''')
-            field_choice = input("Please select 1 - 5:  ")
+            field_choice = input("Silakan pilih 1 - 5:  ")
 
             if field_choice == '1':
-                new_name = input("Enter new name: ").title()
+                new_name = input("Masukkan nama baru: ").title()
                 N = new_name[0] if new_name[0].isalpha() else '#'
                 contact['nama'] = new_name
-                print("Name updated successfully.")
+                print("Nama berhasil diperbarui.")
             elif field_choice == '2':
-                new_hp = input("Enter new hp: ")
+                new_hp = input("Masukkan hp baru: ")
                 contact['hp'] = new_hp
-                print("Hp updated successfully.")
+                print("Hp berhasil diperbarui.")
             elif field_choice == '3':
-                new_kota = input("Enter new kota: ").title()
+                new_kota = input("Masukkan kota baru: ").title()
                 contact['kota'] = new_kota
-                print("Kota updated successfully.")
+                print("Kota berhasil diperbarui.")
             elif field_choice == '4':
-                new_zip = input("Enter new zip: ")
+                new_zip = input("Masukkan zip baru: ")
                 contact['zip'] = new_zip
-                print("Zip updated successfully.")
+                print("Zip berhasil diperbarui.")
             elif field_choice == '5':
-                print("Going back to main menu.")
+                print("Kembali ke menu utama.")
                 state1 = False
                 state2 = False
                 break
             else:
-                print("Invalid choice. Please select 1 - 5.\n")
+                print("Pilihan tidak sah. Silakan pilih 1 - 5.\n")
         if not state1:
             # exit the function if state1 is False
             break
@@ -313,7 +313,7 @@ def organize_options():
                 print('\n')
 
         elif userOption == '3':
-            contactName = input('Who would you like to check? ').title()
+            contactName = input('Siapa yang ingin Anda periksa? ').title()
             N = contactName[0] if contactName[0].isalpha() else '#'
             for i in yellow_pages[N]:
                 if (contactName == i['nama']):
@@ -321,24 +321,24 @@ def organize_options():
                     print('--------------------------------------------------------------------------')
                     
             print('\n')
-            print("!!!<-----Contact not found----->!!!")
+            print("!!!<-----Kontak tidak ditemukan----->!!!")
             if yellow_pages[N]:
-                print('You could try search for these names instead: - ')
+                print('Anda dapat mencoba mencari nama-nama ini sebagai gantinya: - ')
                 print('\n')           
                 for i in yellow_pages[N]:
                     print(i["nama"])
             print('\n')           
             
         elif userOption == "4":
-            print('Returning to main programing')
+            print('Kembali ke menu utama')
             state = False
 
         else:
             print('\n')
-            print("Input not valid.")
+            print("Masukan tidak valid.")
             print('\n')
             print('!!! ERROR !!!')
-            print("Please Input a valid input of 1 - 4")
+            print("Silakan Masukkan input yang valid dari 1 - 4")
 
 # ===================================================================================================================
 # Search Contact END 
