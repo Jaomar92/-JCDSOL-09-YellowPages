@@ -118,56 +118,84 @@ def Add_contact():
 
 # Update Contact
 def Update_contact():
+    state1 = True
+    
+    contact = {}
+
     organize_contact()
-    #Get user contact they wish to update.
-    contactName = input("Tulis nama kontak yang anda ingin perbaruhi: ").title()
-    # Checks if its a alphabet or char.
-    N = contactName[0] if contactName[0].isalpha() else '#'
-    for i in yellow_pages[N]:
-        if (contactName == i['nama']):
-            changeName = input("Would you like to change the contact's name? (Y/N):  ").title()
-            changeName_assurance = changeName[0]
-            if changeName_assurance == "Y":
-                i['nama'] = input("Please enter new Name: ").title()
+    while True:
+        while state1:
+            contactName = input('Which contact would you like to update? ').title()
+            # to handle names starting with non-alphabetic characters
+            N = contactName[0] if contactName[0].isalpha() else '#'
+            possible_matches = []
+            found_contact = None
+            for i in yellow_pages[N]:
+                if i['nama'] == contactName:
+                    found_contact = i
+                    contact = i
+                    state2 = True
+                elif contactName in i['nama']:
+                    possible_matches.append(i)
+            if found_contact:
+                break
+            elif not contactName:
+                print("Returning to main menu")
+                return None
             else:
+                print("\nName doesn't match any of the entries in our database. \n\nCould you mean one of these possible names?")
+                print('\n'+ N)
+                for j in possible_matches:
+                    print('  ', j['nama'],'\n','|',"contact: ", j['hp']," "*(15 -len(j['hp'])), "|", "kota: ", j['kota']," "*(15 -len(j['kota'])), "|" ,"zip: ", j['zip']," "*(7 -len(j['zip'])), "|")
+                    print('--------------------------------------------------------------------------')
                 print('\n')
-                print('Moving on to contact number.')
-                print('\n')
-            changeHp = input("Would you like to change the contact's hp? (Y/N):  ").title()
-            changeHp_assurance = changeHp[0]
-            if changeHp_assurance == "Y":
-                i['hp'] = input("Please enter new Number: ")
+
+        print(f"\nSelected contact: {contact['nama']}, Hp: {contact['hp']}, Kota: {contact['kota']}, Zip: {contact['zip']}\n")
+
+        while state2:
+            print('''
+            What field of the contact would you like to update?: 
+            1. Nama
+            2. Hp
+            3. Kota
+            4. Zip
+            5. Go back to main menu
+            ''')
+            field_choice = input("Please select 1 - 5:  ")
+
+            if field_choice == '1':
+                new_name = input("Enter new name: ").title()
+                N = new_name[0] if new_name[0].isalpha() else '#'
+                contact['nama'] = new_name
+                print("Name updated successfully.")
+            elif field_choice == '2':
+                new_hp = input("Enter new hp: ")
+                contact['hp'] = new_hp
+                print("Hp updated successfully.")
+            elif field_choice == '3':
+                new_kota = input("Enter new kota: ").title()
+                contact['kota'] = new_kota
+                print("Kota updated successfully.")
+            elif field_choice == '4':
+                new_zip = input("Enter new zip: ")
+                contact['zip'] = new_zip
+                print("Zip updated successfully.")
+            elif field_choice == '5':
+                print("Going back to main menu.")
+                state1 = False
+                state2 = False
+                break
             else:
-                print('\n')
-                print('Moving on to contact Kota.')
-                print('\n')
-            
-            changeKota = input("Would you like to change the contact's Kota? (Y/N):  ").title()
-            changeKota_assurance = changeKota[0]
-            if changeKota_assurance == "Y":
-                i['Kota'] = input("Please enter new Kota: ")
-            else:
-                print('\n')
-                print('Moving on to contact zip.')
-                print('\n')
-            
-            changeZip = input("Would you like to change the contact's Zip? (Y/N):  ").title()
-            changeZip_assurance = changeZip[0]
-            if changeZip_assurance == "Y":
-                i['zip'] = input("Please enter new Zip: ")
-            else:
-                print('\n')
-                print('Moving on to updating contact.')
-                print('\n')
-            
-            print('\n')
-            print('\n')
-            print("Contact has been updated successfully")
-            return
-        else:
-            print('\n')
-            print("!!!<-----Contact not found----->!!!")
-            print('\n')
+                print("Invalid choice. Please select 1 - 5.\n")
+        if not state1:
+            # exit the function if state1 is False
+            break
+
+        # update the yellow_pages dictionary with the modified contact
+        yellow_pages[N][yellow_pages[N].index(found_contact)] = contact
+
+        # reset contact
+        contact = {}
 
 # ===================================================================================================================
 # Update Contact End 
