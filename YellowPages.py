@@ -209,37 +209,45 @@ def Update_contact():
 def Delete_contact():
     #prints current contact list for better reference
     organize_contact()
-    # Ask user which contact they want to delete.
-    contactName = input("Tulis nama kontak yang anda ingin hapus: ").title()
-    # checks if the contact exsist.
-    N = contactName[0] if contactName[0].isalpha() else '#'
-    # iterates contact list to find a match
-    # need to check if the contact exist first.
+    #Starts initial state of first loop.
     contact_found = False
     
-    if N in yellow_pages:
-        contact_found = True
-    else:
-        print('\n')
-        print("!!!<-----Kontak tidak ditemukan----->!!!")
-        print('\n')
-        print("Pulang kembali ke Menu Utama.")
-        return
+    while not contact_found:
+        contactName = input("Silakan tulis nama kontak yang ingin Anda hapus: ").title()
+        N = contactName[0] if contactName[0].isalpha() else '#'
+        for i in yellow_pages[N]:
+            if contactName == i['nama']:
+                contact_found = True
+                print('''
+                Sudah Jumpa
+                ''')
+            else:
+                print('\n')
+                print("!!!<-----Kontak tidak ditemukan----->!!!")
+                print('\n')
+                print('Apakah yang Anda maksud adalah salah satu dari kontak berikut?')
+                print(N)
+                for j in yellow_pages[N]:
+                    print('  ', j['nama'],'\n','|',"contact: ", j['hp']," "*(15 -len(j['hp'])), "|", "kota: ", j['kota']," "*(15 -len(j['kota'])), "|" ,"zip: ", j['zip']," "*(7 -len(j['zip'])), "|")
+                    print('--------------------------------------------------------------------------')
+                print('\n')
+            
 
-    if contact_found:    
+    while contact_found:    
         assurance = input("Anda yakin ingin menghapus kontak? (Y/N): ").title()
         if assurance == "Y":
             for i in yellow_pages[N]:
                 if (contactName == i['nama']):
                     yellow_pages[N].remove(i)
                     print("kontak berhasil dihapus.")
-                    return
-        elif assurance =="N":
+                    contact_found = False
+        elif assurance == "N":
             print('\n')
-            print("Baik kita akan pelung balik ke Menu Utama.")
+            print("Baik kita akan kembali ke Menu Utama.")
+            contact_found = False
         else:
             print('\n')
-            print("Input yang salah. Program ini akan kembali ke menu utam.")
+            print("Input yang salah. Program ini akan kembali ke menu utama.")
 
 # ===================================================================================================================
 # Delete Contact End 
@@ -255,7 +263,7 @@ def organize_options():
     state = True
     while state:
         print('''
-    How would you prefer retrieve your desired contact.
+    Bagaimana Anda lebih suka mengambil kontak yang Anda inginkan.
     1. Semua Kontak yang di hurai.
     2. guna huruf.
     3. guna Nama kontak.
@@ -290,7 +298,8 @@ def organize_options():
             print(f"Kontak List dalam huruf {N}:- ")
             if yellow_pages.get(N) is not None:
                 print(N)
-                for i in yellow_pages[N]:
+                sorted_yellowPages = sorted(yellow_pages[N], key=lambda d: d['nama'])
+                for i in sorted_yellowPages:
                     print('  ', i['nama'],'\n','|',"contact: ", i['hp']," "*(15 -len(i['hp'])), "|", "kota: ", i['kota']," "*(15 -len(i['kota'])), "|" ,"zip: ", i['zip']," "*(7 -len(i['zip'])), "|")
                     print('--------------------------------------------------------------------------')
                     count += 1
