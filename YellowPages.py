@@ -41,14 +41,14 @@ def organize_contact():
     organized = dict(sorted(yellow_pages.items()))
     #Organize the dictionary of the alphabets
     for i in organized:
-    #use sorted based on keys
-        organized[i]= sorted(yellow_pages[i], key=lambda d: d['nama'])
+    #use sorted on the nama keys value.
+        organized[i]= sorted(yellow_pages[i], key=lambda x: x['nama'])
         if len(organized[i]) > 0:
             print(i)
         else:
             continue
         for j in organized[i]:
-            print('  ', j['nama'],'\n','|',"contact: ", j['hp']," "*(15 -len(j['hp'])), "|", "kota: ", j['kota']," "*(15 -len(j['kota'])), "|" ,"zip: ", j['zip']," "*(7 -len(j['zip'])), "|")
+            print('  ', j['nama'],'\n','|',"contact: ", j['hp']," "*(15 - len(j['hp'])), "|", "kota: ", j['kota']," "*(15 -len(j['kota'])), "|" ,"zip: ", j['zip']," "*(7 -len(j['zip'])), "|")
             print('--------------------------------------------------------------------------')
         print()
 # ===================================================================================================================
@@ -77,12 +77,11 @@ def Add_contact():
             state = False
             return state
         N = contactName[0] if contactName[0].isalpha() else '#'
-        # checks if N is in the yellow_pages dict.
+        # Need to check if N is in the yellow_pages dict.
         # if it is not it will create a new dict key.
         if N not in yellow_pages:
             yellow_pages[N] = []
         # Checks if user already exist
-
         for i in yellow_pages[N]:
             if (contactName == i['nama']):
                 print('\n')
@@ -128,13 +127,17 @@ def Update_contact():
             contactName = input('Kontak mana yang ingin Anda perbarui? ').title()
             # to handle names starting with non-alphabetic characters
             N = contactName[0] if contactName[0].isalpha() else '#'
+            # temp storage for printing later.
             possible_matches = []
+            # start false so the program could be sure to move on. 
             found_contact = None
+            # finds if user input has any matching results.
             for i in yellow_pages[N]:
                 if i['nama'] == contactName:
                     found_contact = i
                     contact = i
                     state2 = True
+                # finds similar matching for double checking
                 elif contactName in i['nama']:
                     possible_matches.append(i)
             if found_contact:
@@ -313,7 +316,9 @@ def organize_options():
                 print('Anda dapat mencoba mencari nama-nama ini sebagai gantinya: - ')
                 print('\n')           
                 for i in yellow_pages[N]:
-                    print(i["nama"])
+                    if (contactName == i['nama']):
+                        print('  ', i['nama'],'\n','|',"contact: ", i['hp']," "*(15 -len(i['hp'])), "|", "kota: ", i['kota']," "*(15 -len(i['kota'])), "|" ,"zip: ", i['zip']," "*(7 -len(i['zip'])), "|")
+                        print('--------------------------------------------------------------------------')
             print('\n')           
             
         elif userOption == "4":
