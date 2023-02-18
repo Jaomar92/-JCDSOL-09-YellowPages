@@ -9,21 +9,3 @@ yellow_pages = {
     "K":[{"nama":"Karina Farida", "hp":"6281515745925", "kota":'Depok', "zip":'294522'}], 
 }
 
-def organize_contact():
-    print(' ')
-    print("Contact List:- ")
-    # organize the alphabets
-    organized = dict(sorted(yellow_pages.items()))
-    #Organize the dictionary of the alphabets
-    for i in organized:
-    #use sorted based on keys
-        organized[i]= sorted(yellow_pages[i], key=lambda d: d['nama'])
-        if len(organized[i]) > 0:
-            print(i)
-        else:
-            continue
-        for j in organized[i]:
-            print('  ', j['nama'],'\n','|',"contact: ", j['hp']," "*(15 -len(j['hp'])), "|", "kota: ", j['kota']," "*(15 -len(j['kota'])), "|" ,"zip: ", j['zip']," "*(7 -len(j['zip'])), "|")
-            print('--------------------------------------------------------------------------')
-        print()
-
