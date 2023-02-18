@@ -65,7 +65,7 @@ def organize_contact():
 
 # Function to Add Contact
 def Add_contact():
-    state =True
+    state = True
     while state:
         # Take contact Details
         # first error check is name
@@ -274,20 +274,7 @@ def organize_options():
             print(' ')
             print("Kontak List:- ")
             # organize the alphabets
-            organized = dict(sorted(yellow_pages.items()))
-            #Organize the dictionary of the alphabets
-            for i in organized:
-            #use sorted based on keys
-                organized[i]= sorted(yellow_pages[i], key=lambda d: d['nama'])
-                # If new key is added and empty it skips it.
-                if len(organized[i]) > 0:
-                    print(i)
-                else:
-                    continue
-                for j in organized[i]:
-                    print('  ', j['nama'],'\n','|',"contact: ", j['hp']," "*(15 -len(j['hp'])), "|", "kota: ", j['kota']," "*(15 -len(j['kota'])), "|" ,"zip: ", j['zip']," "*(7 -len(j['zip'])), "|")
-                    print('--------------------------------------------------------------------------')
-                print()
+            organize_contact()
             print('^^^ Scroll Atas ^^^')
             
         elif userOption == "2":
