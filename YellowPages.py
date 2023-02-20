@@ -199,6 +199,7 @@ def Update_contact():
         elif field_choice == '5':
             print("Kembali ke menu utama.")
             # only way to exit loop
+            contact_found = False
             
         else:
             print("Pilihan tidak sah. Silakan pilih 1 - 5.\n")
@@ -232,7 +233,6 @@ def Delete_contact():
         for i in yellow_pages[N]:
             if contactName == i['nama']:
                 contact_found = True
-                
                 print('''
                 Sudah Jumpa
                 ''')
