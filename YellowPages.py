@@ -199,13 +199,11 @@ def Update_contact():
         elif field_choice == '5':
             print("Kembali ke menu utama.")
             # only way to exit loop
-            break
+            
         else:
             print("Pilihan tidak sah. Silakan pilih 1 - 5.\n")
         # update the yellow_pages dictionary with the modified contact
         yellow_pages[N][yellow_pages[N].index(found_contact)] = contact
-        
-        
         # reset contact
         contact = {}
 
@@ -226,6 +224,10 @@ def Delete_contact():
 
     while not contact_found:
         contactName = input("Silakan tulis nama kontak yang ingin Anda hapus: ").title()
+        if len(contactName) == 0 or contactName.isspace():
+            print('Kembali ke Menu Utama')
+            state = False
+            return state
         N = contactName[0] if contactName[0].isalpha() else '#'
         for i in yellow_pages[N]:
             if contactName == i['nama']:
@@ -234,7 +236,7 @@ def Delete_contact():
                 print('''
                 Sudah Jumpa
                 ''')
-            if not contact_found:
+            else:
                 print('\n')
                 print("!!!<-----Kontak tidak ditemukan----->!!!")
                 print('\n')
