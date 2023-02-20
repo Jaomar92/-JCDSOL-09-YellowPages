@@ -1,6 +1,7 @@
 #Student: Jeffey Aroun bin Omar
 
 #Initialization of DataBase
+# A dictionary named Yellow pages where by each key holds a list of dictionary containing values for each contact.
 yellow_pages = { 
     "C":[{"nama":"Chandra", "hp":"6282127289952", "kota":'Jakarta Barat', "zip":'132190'}],
     "D":[{"nama":"Dita Claudia", "hp":"628111366828", "kota":'Jakarta Selatan', "zip":'12190'}],
@@ -15,7 +16,7 @@ yellow_pages = {
 # ===================================================================================================================
 # Minor Functions START 
 # ===================================================================================================================
-
+# Simple functions to print.
 def Greeting():
     print("Halo Selamat Datang di program Python Yellow Pages Jeffrey! ")
     print("Bisa saya bantu? ")
@@ -33,14 +34,18 @@ def Menu():
     5. Keluar.
     ''')
 
-# Function to organize the dictionary. 
+# Function to organize the dictionary.
 def organize_contact():
     print(' ')
     print("Contact List:- ")
     # organize the alphabets
+    # make a new temp dictionary
     organized = dict(sorted(yellow_pages.items()))
-    #Organize the dictionary of the alphabets
+# makes a new dictionary that sorts each key.
+ 
+    #Organize each key value list by name.
     for i in organized:
+        # sort dictionary indexs list by name
     #use sorted on the nama keys value.
         organized[i]= sorted(yellow_pages[i], key=lambda x: x['nama'])
         if len(organized[i]) > 0:
@@ -60,12 +65,14 @@ def organize_contact():
 # ===================================================================================================================
 
 # ===================================================================================================================
-# Add contact Start 
+# Add contact Start padd
 # ===================================================================================================================
 
 # Function to Add Contact
+# uses a single while loop to get correct data from user.
 def Add_contact():
     state = True
+    
     while state:
         # Take contact Details
         # first error check is name
@@ -113,7 +120,7 @@ def Add_contact():
 # ====================================================================================================================
 
 # ====================================================================================================================
-# Update Contac Start 
+# Update Contac Start pup
 # ====================================================================================================================
 
 # Update Contact
@@ -191,14 +198,14 @@ def Update_contact():
             print("Zip berhasil diperbarui.")
         elif field_choice == '5':
             print("Kembali ke menu utama.")
-        
+            # only way to exit loop
             break
         else:
             print("Pilihan tidak sah. Silakan pilih 1 - 5.\n")
         # update the yellow_pages dictionary with the modified contact
         yellow_pages[N][yellow_pages[N].index(found_contact)] = contact
-        # exit the loop
-        contact_found = False
+        
+        
         # reset contact
         contact = {}
 
@@ -207,7 +214,7 @@ def Update_contact():
 # ===================================================================================================================
 
 # ===================================================================================================================
-# Delete Contact Start 
+# Delete Contact Start pdel
 # ===================================================================================================================
 
 # Delete contact
@@ -216,27 +223,30 @@ def Delete_contact():
     organize_contact()
     #Starts initial state of first loop.
     contact_found = False
-    
+
     while not contact_found:
         contactName = input("Silakan tulis nama kontak yang ingin Anda hapus: ").title()
         N = contactName[0] if contactName[0].isalpha() else '#'
         for i in yellow_pages[N]:
             if contactName == i['nama']:
                 contact_found = True
+                
                 print('''
                 Sudah Jumpa
                 ''')
-            else:
+            if not contact_found:
                 print('\n')
                 print("!!!<-----Kontak tidak ditemukan----->!!!")
                 print('\n')
-                print('Apakah yang Anda maksud adalah salah satu dari kontak berikut?')
-                print(N)
-                for j in yellow_pages[N]:
-                    print('  ', j['nama'],'\n','|',"contact: ", j['hp']," "*(15 -len(j['hp'])), "|", "kota: ", j['kota']," "*(15 -len(j['kota'])), "|" ,"zip: ", j['zip']," "*(7 -len(j['zip'])), "|")
-                    print('--------------------------------------------------------------------------')
-                print('\n')
-            
+                suggested_contacts = [j['nama'] for j in yellow_pages[N] if contactName in j['nama']]
+                if suggested_contacts:
+                    print('Apakah yang Anda maksud adalah salah satu dari kontak berikut?')
+                    print(N)
+                    for j in yellow_pages[N]:
+                        if contactName in j['nama']:
+                            print('  ', j['nama'],'\n','|',"contact: ", j['hp']," "*(15 -len(j['hp'])), "|", "kota: ", j['kota']," "*(15 -len(j['kota'])), "|" ,"zip: ", j['zip']," "*(7 -len(j['zip'])), "|")
+                            print('--------------------------------------------------------------------------')
+                    print('\n')
 
     while contact_found:    
         assurance = input("Anda yakin ingin menghapus kontak? (Y/N): ").title()
@@ -259,7 +269,7 @@ def Delete_contact():
 # ===================================================================================================================
 
 # ===================================================================================================================
-# Search Contact Start 
+# Search Contact Start pser
 # ===================================================================================================================
 
 # Find user by alphabet, name or just list everything at once.
@@ -311,9 +321,9 @@ def organize_options():
                 if (contactName == i['nama']):
                     print('  ', i['nama'],'\n','|',"contact: ", i['hp']," "*(15 -len(i['hp'])), "|", "kota: ", i['kota']," "*(15 -len(i['kota'])), "|" ,"zip: ", i['zip']," "*(7 -len(i['zip'])), "|")
                     print('--------------------------------------------------------------------------')
-                    
-            print('\n')
-            print("!!!<-----Kontak tidak ditemukan----->!!!")
+                else:
+                    print('\n')
+                    print("!!!<-----Kontak tidak ditemukan----->!!!")
             if yellow_pages[N]:
                 print('Anda dapat mencoba mencari nama-nama ini sebagai gantinya: - ')
                 print('\n')           
@@ -344,29 +354,31 @@ def organize_options():
 # ====================================================================================================================
 
 # ====================================================================================================================
-# Program script Start 
+# Program script Start = pstart
 # ====================================================================================================================
 
+
+# Main while loop that executes the menu function then takes a user input 
 # organize_contact()
 Greeting()
 while True:
     Menu()
-    userOption = input(" Sila pilih nomor: ")
-    userInput = int(userOption if userOption.isdigit() else 6)
-    if (userInput == 1):
-        print("Anda pilih: " + str(userOption))
+    userInput = input(" Sila pilih nomor: ")
+    varifyInput = int(userInput if userInput.isdigit() else 6)
+    if (varifyInput == 1):
+        print("Anda pilih: " + str(userInput))
         Add_contact()
-    elif (userInput == 2):
-        print("Anda pilih: " + str(userOption))
+    elif (varifyInput == 2):
+        print("Anda pilih: " + str(userInput))
         Update_contact()
-    elif (userInput == 3):
-        print("Anda pilih: " + str(userOption))
+    elif (varifyInput == 3):
+        print("Anda pilih: " + str(userInput))
         Delete_contact()
-    elif (userInput == 4):
-        print("Anda pilih: " + str(userOption))
+    elif (varifyInput == 4):
+        print("Anda pilih: " + str(userInput))
         organize_options()
-    elif (userInput == 5):
-        print("Anda pilih: " + str(userOption))
+    elif (varifyInput == 5):
+        print("Anda pilih: " + str(userInput))
         break
     else:
         print('\n')        
@@ -374,5 +386,5 @@ while True:
         print('\n')        
 
 # ====================================================================================================================
-# Program script Start 
+# Program script end
 # ====================================================================================================================
